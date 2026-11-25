@@ -111,7 +111,8 @@ input:focus,select:focus,textarea:focus,button:focus-visible{outline:2px solid v
         <label class="ch" for="nom-autre">Nom de votre commerce</label>
         <input type="text" id="nom-autre" maxlength="80">
         <div class="deux">
-          <div><label class="ch" for="cat-autre">Catégorie</label><select id="cat-autre"></select></div>
+          <div><label class="ch" for="cat-autre">Catégorie</label><select id="cat-autre"></select>
+            <input type="text" id="cat-libre" maxlength="60" placeholder="Votre catégorie (ex. : Épicerie bio)" hidden style="margin-top:6px"></div>
           <div><label class="ch" for="act-autre">Activité <small>(ex. : Fleuriste)</small></label><input type="text" id="act-autre" maxlength="80"></div>
         </div>
       </div>
@@ -209,19 +210,26 @@ const court = d => `${JC[d.wd].toLowerCase()} ${jnum(d)} ${MC[d.m]}`;
 const long = d => `${JL[d.wd]} ${jnum(d)} ${ML[d.m]}`;
 
 /* ---------- Liste des commerces ---------- */
+function toutesCats() {
+  const extra = [...new Set(COMMERCES.map(c => c.cat).filter(c => c && !CATEGORIES.includes(c)))].sort((a, b) => a.localeCompare(b, 'fr'));
+  return CATEGORIES.concat(extra);
+}
 function remplirSelect() {
-  const sel = $('#commerce'), garde = sel.value;
+  const sel = $('#commerce'), garde = sel.value, cats = toutesCats();
   const groupes = {};
-  COMMERCES.forEach(c => { const k = CATEGORIES.includes(c.cat) ? c.cat : 'Autres'; (groupes[k] = groupes[k] || []).push(c); });
+  COMMERCES.forEach(c => { const k = c.cat || 'Autres'; (groupes[k] = groupes[k] || []).push(c); });
   let h = '<option value="">— Choisissez votre commerce —</option>';
-  CATEGORIES.concat(['Autres']).forEach(cat => {
+  cats.concat(['Autres']).forEach(cat => {
     if (!groupes[cat]) return;
     h += `<optgroup label="${esc(cat)}">` + groupes[cat].sort((a,b) => a.nom.localeCompare(b.nom,'fr'))
       .map(c => `<option value="${esc(c.nom)}">${esc(c.nom)}</option>`).join('') + '</optgroup>';
   });
   h += '<option value="__autre">➕ Mon commerce n\'est pas dans la liste</option>';
   sel.innerHTML = h; sel.value = garde;
-  $('#cat-autre').innerHTML = '<option value="">— Choisissez —</option>' + CATEGORIES.map(c => `<option>${esc(c)}</option>`).join('');
+  const gc = $('#cat-autre').value;
+  $('#cat-autre').innerHTML = '<option value="">— Choisissez —</option>' + cats.map(c => `<option>${esc(c)}</option>`).join('') +
+    '<option value="__libre">➕ Autre catégorie (à préciser)</option>';
+  $('#cat-autre').value = gc;
 }
 function majCommerce() {
   const v = $('#commerce').value, c = COMMERCES.find(x => x.nom === v);
@@ -229,6 +237,7 @@ function majCommerce() {
   $('#note-cat').textContent = c ? `Catégorie : ${c.cat}${c.act ? ' · ' + c.act : ''}` : '';
 }
 $('#commerce').addEventListener('change', majCommerce);
+$('#cat-autre').addEventListener('change', () => { const l = $('#cat-libre'); l.hidden = $('#cat-autre').value !== '__libre'; if (!l.hidden) l.focus(); });
 
 /* ---------- Grille des jours ---------- */
 function blocJour(d) {
@@ -345,10 +354,11 @@ $('#form').addEventListener('submit', async e => {
   const v = $('#commerce').value, autre = v === '__autre';
   const c = COMMERCES.find(x => x.nom === v);
   const commerce = autre ? $('#nom-autre').value.trim() : v;
-  const categorie = autre ? $('#cat-autre').value : (c && CATEGORIES.includes(c.cat) ? c.cat : '');
+  const libre = autre && $('#cat-autre').value === '__libre';
+  const categorie = autre ? (libre ? $('#cat-libre').value.trim() : $('#cat-autre').value) : (c ? (c.cat || 'Autres') : '');
   if (!v) return erreur('Choisissez votre commerce.', $('#commerce'));
   if (autre && !commerce) return erreur('Indiquez le nom de votre commerce.', $('#nom-autre'));
-  if (!categorie) return erreur('Choisissez la catégorie de votre commerce.', autre ? $('#cat-autre') : $('#commerce'));
+  if (!categorie) return erreur(libre ? 'Précisez votre catégorie.' : 'Choisissez la catégorie de votre commerce.', libre ? $('#cat-libre') : (autre ? $('#cat-autre') : $('#commerce')));
 
   const aucun = $('#aucun').checked, jours = {};
   if (!aucun) {
