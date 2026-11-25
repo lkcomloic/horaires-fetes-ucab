@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Générateur de visuels – Ouvertures de décembre – UCAB</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,500;0,600;0,700;0,800;1,500&display=swap" rel="stylesheet">
+<script src="config.js"></script>
+<style>
+*{box-sizing:border-box}
+[hidden]{display:none!important}
+body{margin:0;font-family:system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;background:#eef0f3;color:#22252b}
+header{background:#123d2c;color:#fff;padding:14px 18px}
+header h1{margin:0;font-size:1.25rem}
+header p{margin:4px 0 0;opacity:.85;font-size:.9rem}
+.reglages{display:flex;flex-wrap:wrap;gap:10px 18px;align-items:flex-end;background:#fff;padding:14px 18px;border-bottom:1px solid #dde0e5}
+.reglages label{display:flex;flex-direction:column;gap:4px;font-size:.82rem;font-weight:600}
+.reglages select{padding:8px 10px;border:1px solid #c9cdd4;border-radius:8px;font:inherit;font-weight:400}
+.reglages .cb{flex-direction:row;align-items:center;gap:7px;font-weight:500;font-size:.9rem;padding-bottom:8px}
+.reglages .cb input{width:18px;height:18px}
+.reglages button{padding:9px 14px;border-radius:8px;font:inherit;font-weight:700;cursor:pointer;border:1px solid #123d2c;background:#fff;color:#123d2c}
+.reglages button.principal{background:#c8102e;border-color:#c8102e;color:#fff}
+.etat{padding:10px 18px;font-size:.9rem;color:#555}
+.etat.demo{background:#fff3cd;color:#5c4a00}
+.apercu{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:18px;padding:6px 18px 30px}
+.vignette{background:#fff;border-radius:12px;padding:10px;box-shadow:0 1px 3px rgba(0,0,0,.1)}
+.vignette canvas{width:100%;height:auto;display:block;border-radius:6px}
+.vignette div{display:flex;justify-content:space-between;align-items:center;margin-top:8px;font-size:.85rem;color:#555}
+.vignette button{border:0;background:#123d2c;color:#fff;border-radius:7px;padding:6px 11px;font:inherit;font-weight:600;cursor:pointer}
+</style>
+</head>
+<body>
+<header>
+  <h1>🎄 Générateur de visuels – Ouvertures des dimanches et lundis</h1>
+  <p>Les visuels sont créés à partir de l'onglet « Publication » du Google Sheets (commerces cochés « Publier »), par ordre alphabétique.</p>
+</header>
+
+<div class="reglages">
+  <label>Format
+    <select id="format">
+      <option value="portrait">Post Instagram / Facebook (1080 × 1350)</option>
+      <option value="carre">Carré (1080 × 1080)</option>
+      <option value="story">Story (1080 × 1920)</option>
+    </select>
+  </label>
+  <label>Contenu
+    <select id="contenu">
+      <option value="dim,lun">Dimanches puis lundis</option>
+      <option value="dim">Dimanches seulement</option>
+      <option value="lun">Lundis seulement</option>
+    </select>
+  </label>
+  <label class="cb"><input type="checkbox" id="couverture" checked> Visuel de couverture</label>
+  <label class="cb"><input type="checkbox" id="masquer" checked> Masquer les commerces fermés tous ces jours</label>
+  <button type="button" id="recharger">↻ Recharger les données</button>
+  <button type="button" class="principal" id="tout">⬇ Télécharger tous les visuels</button>
+</div>
+<div class="etat" id="etat">Chargement…</div>
+<div class="apercu" id="apercu"></div>
+
+<script>
+const CFG = window.UCAB_CONFIG || {};
+const URL_SCRIPT = (CFG.SCRIPT_URL || '').trim();
+const DEMO = !URL_SCRIPT;
+const SITE = 'belley-commerces.com';
+const FONT = "Poppins, 'Segoe UI', Roboto, Arial, sans-serif";
+const FORMATS = { portrait: [1080, 1350], carre: [1080, 1080], story: [1080, 1920] };
+const C = { fondHaut: '#0f4430', fondBas: '#07281b', rouge: '#c8102e', or: '#f2b53a', vert: '#17693a', creme: '#fbf6ec', texte: '#1e2430', ferme: '#a39c92' };
+const $ = s => document.querySelector(s);
+
+let DATA = null;
+const logo = new Image();
+let logoOk = false;
+
+/* ---------- Données de démonstration ---------- */
+function demo() {
+  const D = ['2026-12-06','2026-12-07','2026-12-13','2026-12-14','2026-12-20','2026-12-21','2026-12-27','2026-12-28'];
+  const L = [
+    ['Amour de Pivoine','F','F','9h–12h30','F','9h–13h','14h–19h','9h–12h30','F'],
+    ['Au Bonheur des Dames','F','F','F','10h–19h','10h–18h','10h–19h','F','F'],
+    ['Boulangerie de la République','7h–12h30','F','7h–12h30','F','7h–13h','F','7h–12h30','F'],
+    ['Brasserie des Terreaux','F','F','11h30–14h30','F','11h30–14h30','F','F','F'],
+    ['Bugey Optique','F','F','F','F','F','9h30–12h / 14h–19h','F','F'],
+    ["Cat's net Multimédia",'F','F','F','F','F','14h–19h','F','F'],
+    ['Côté Presse','7h30–12h30','F','7h30–12h30','F','7h30–12h30','F','7h30–12h30','F'],
+    ['Cycles Cap Cool','F','F','F','F','10h–17h','10h–19h','F','F'],
+    ['Grain de Malice','F','F','F','F','10h–18h','10h–19h','F','F'],
+    ['Guilde des Orfèvres – Bijouterie Lançon','F','F','10h–18h','10h–19h','10h–18h','9h30–19h','F','F'],
+    ['Hugo Chaussures','F','F','F','F','14h–18h','9h–12h / 14h–19h','F','F'],
+    ['La Boucherie des Halles','8h–12h30','F','8h–12h30','F','8h–12h30','F','8h–12h30','F'],
+    ['La Boucherie Tomczyk','8h–12h','F','8h–12h','F','8h–12h30','F','8h–12h','F'],
+    ["L'Arrosoir",'9h–12h30','F','9h–12h30','F','9h–13h','F','9h–12h30','F'],
+    ['Le Cellier des 3 Pierres','F','9h30–12h / 14h30–19h','F','9h30–12h / 14h30–19h','10h–18h','9h30–19h','10h–12h30','9h30–19h'],
+    ['Le Comptoir des Saveurs','F','F','10h–18h','14h–19h','10h–18h','10h–19h','F','F'],
+    ['Librairie Entre Parenthèses','F','F','F','14h–19h','10h–18h','10h–19h','F','F'],
+    ['Maple Café','F','F','10h–18h','F','10h–18h','F','F','F'],
+    ['Maroquinerie Vanity','F','F','F','F','10h–18h','10h–19h','F','F'],
+    ['Optic 2000','F','F','F','F','F','9h–12h / 14h–19h','F','F'],
+    ['Passion Beauté','F','F','F','F','10h–17h','9h30–19h','F','F'],
+    ['Pâtisserie Marianne Lorieux','8h–12h30','F','8h–12h30','F','8h–13h','F','8h–12h30','F'],
+    ['Pâtisserie Marmillon','8h–12h30','F','8h–12h30','F','8h–13h','F','8h–12h30','F'],
+    ["Scène d'Intérieur",'F','F','14h–18h','10h–19h','10h–18h','10h–19h','F','F'],
+    ["Territoire d'Homme Sylvie Thiriez",'F','F','F','14h–19h','10h–18h','10h–19h','F','F'],
+    ['Yves Rocher','F','F','F','F','F','10h–19h','F','F']
+  ];
+  return { dates: D, commerces: L.map(l => ({ nom: l[0], jours: Object.fromEntries(D.map((d, i) => [d, l[i + 1] === 'F' ? 'Fermé' : l[i + 1]])) })) };
+}
+
+/* ---------- Outils de dessin ---------- */
+const ferme = v => /^\s*ferm/i.test(v || '');
+function rr(ctx, x, y, w, h, r) {
+  r = typeof r === 'number' ? [r, r, r, r] : r;
+  ctx.beginPath();
+  ctx.moveTo(x + r[0], y); ctx.lineTo(x + w - r[1], y); ctx.quadraticCurveTo(x + w, y, x + w, y + r[1]);
+  ctx.lineTo(x + w, y + h - r[2]); ctx.quadraticCurveTo(x + w, y + h, x + w - r[2], y + h);
+  ctx.lineTo(x + r[3], y + h); ctx.quadraticCurveTo(x, y + h, x, y + h - r[3]);
+  ctx.lineTo(x, y + r[0]); ctx.quadraticCurveTo(x, y, x + r[0], y); ctx.closePath();
+}
+function police(ctx, poids, taille, italique) { ctx.font = `${italique ? 'italic ' : ''}${poids} ${taille}px ${FONT}`; }
+function ajuster(ctx, txt, maxW, poids, taille, min) {
+  let t = taille; police(ctx, poids, t);
+  while (ctx.measureText(txt).width > maxW && t > min) { t--; police(ctx, poids, t); }
+  return t;
+}
+function couper(ctx, txt, maxW) {
+  if (ctx.measureText(txt).width <= maxW) return txt;
+  while (txt.length > 1 && ctx.measureText(txt + '…').width > maxW) txt = txt.slice(0, -1);
+  return txt.trim() + '…';
+}
+function deuxLignes(ctx, txt, maxW) {
+  const mots = txt.split(' '); let l1 = '';
+  for (let i = 0; i < mots.length; i++) {
+    const essai = (l1 ? l1 + ' ' : '') + mots[i];
+    if (ctx.measureText(essai).width > maxW && l1) return [l1, couper(ctx, mots.slice(i).join(' '), maxW)];
+    l1 = essai;
+  }
+  return [couper(ctx, l1, maxW)];
+}
+function etoile(ctx, x, y, r, coul) {
+  ctx.save(); ctx.fillStyle = coul; ctx.beginPath();
+  for (let i = 0; i < 10; i++) {
+    const a = -Math.PI / 2 + i * Math.PI / 5, rr2 = i % 2 ? r * 0.45 : r;
+    ctx.lineTo(x + Math.cos(a) * rr2, y + Math.sin(a) * rr2);
+  }
+  ctx.closePath(); ctx.fill(); ctx.restore();
+}
+function flocon(ctx, x, y, r, alpha) {
+  ctx.save(); ctx.strokeStyle = `rgba(255,255,255,${alpha})`; ctx.lineWidth = Math.max(1.5, r / 4); ctx.lineCap = 'round';
+  for (let i = 0; i < 6; i++) {
+    const a = i * Math.PI / 3; ctx.beginPath(); ctx.moveTo(x, y); ctx.lineTo(x + Math.cos(a) * r, y + Math.sin(a) * r); ctx.stroke();
+  }
+  ctx.restore();
+}
+
+/* ---------- Décor commun ---------- */
+function fond(ctx, W, H) {
+  const g = ctx.createLinearGradient(0, 0, 0, H); g.addColorStop(0, C.fondHaut); g.addColorStop(1, C.fondBas);
+  ctx.fillStyle = g; ctx.fillRect(0, 0, W, H);
+  let s = 11; const rnd = () => (s = (s * 16807) % 2147483647) / 2147483647;
+  for (let i = 0; i < 140; i++) {
+    ctx.fillStyle = `rgba(255,255,255,${0.08 + rnd() * 0.25})`;
+    ctx.beginPath(); ctx.arc(rnd() * W, rnd() * H, 1 + rnd() * 3.2, 0, 7); ctx.fill();
+  }
+  [[70, 150, 22], [W - 80, 190, 26], [120, H - 190, 20], [W - 110, H - 230, 18]].forEach(f => flocon(ctx, f[0], f[1], f[2], 0.35));
+  // Guirlande
+  ctx.strokeStyle = C.or; ctx.lineWidth = 3;
+  ctx.beginPath(); ctx.moveTo(-10, 18); ctx.quadraticCurveTo(W * 0.25, 78, W * 0.5, 28); ctx.quadraticCurveTo(W * 0.75, -16, W + 10, 40); ctx.stroke();
+  const pt = t => {
+    if (t < 0.5) { const u = t * 2; return [(1 - u) ** 2 * -10 + 2 * (1 - u) * u * W * 0.25 + u * u * W * 0.5, (1 - u) ** 2 * 18 + 2 * (1 - u) * u * 78 + u * u * 28]; }
+    const u = (t - 0.5) * 2; return [(1 - u) ** 2 * W * 0.5 + 2 * (1 - u) * u * W * 0.75 + u * u * (W + 10), (1 - u) ** 2 * 28 + 2 * (1 - u) * u * -16 + u * u * 40];
+  };
+  const coul = [C.rouge, '#ffffff', C.or];
+  for (let i = 1; i < 14; i++) {
+    const [x, y] = pt(i / 14);
+    if (i % 3 === 2) etoile(ctx, x, y + 14, 13, C.or);
+    else {
+      ctx.fillStyle = coul[i % 3]; ctx.beginPath(); ctx.arc(x, y + 16, 12, 0, 7); ctx.fill();
+      ctx.fillStyle = 'rgba(255,255,255,.45)'; ctx.beginPath(); ctx.arc(x - 4, y + 12, 3.5, 0, 7); ctx.fill();
+    }
+  }
+}
+function carteLogo(ctx, W, y, h) {
+  let lw = 230;
+  if (logoOk) lw = Math.min(360, logo.naturalWidth / logo.naturalHeight * (h - 24) + 40);
+  const x = (W - lw) / 2;
+  ctx.save(); ctx.shadowColor = 'rgba(0,0,0,.25)'; ctx.shadowBlur = 18; ctx.fillStyle = '#fff'; rr(ctx, x, y, lw, h, 20); ctx.fill(); ctx.restore();
+  if (logoOk) { const ih = h - 24, iw = logo.naturalWidth / logo.naturalHeight * ih; ctx.drawImage(logo, (W - iw) / 2, y + 12, iw, ih); }
+  else { police(ctx, 800, 48); ctx.fillStyle = '#1b3f8b'; ctx.textAlign = 'center'; ctx.textBaseline = 'middle'; ctx.fillText('UCAB', W / 2, y + h / 2); }
+}
+function pied(ctx, W, H, page, pages, note) {
+  ctx.textAlign = 'center'; ctx.textBaseline = 'alphabetic';
+  if (note) { police(ctx, 500, 21, true); ctx.fillStyle = 'rgba(255,255,255,.75)'; ctx.fillText(note, W / 2, H - 82); }
+  police(ctx, 600, 25); ctx.fillStyle = '#ffffff'; ctx.fillText(SITE, W / 2, H - 38);
+  if (pages > 1) { police(ctx, 600, 22); ctx.fillStyle = C.or; ctx.textAlign = 'right'; ctx.fillText(`${page} / ${pages}`, W - 44, H - 38); }
+}
+
+/* ---------- Visuel de couverture ---------- */
+function couverture(ctx, W, H, dates) {
+  fond(ctx, W, H);
+  const story = H > 1500, carre = H < 1200;
+  const yLogo = story ? 200 : carre ? 100 : 120;
+  carteLogo(ctx, W, yLogo, carre ? 110 : 130);
+  let y = yLogo + (carre ? 110 : 130) + (story ? 170 : carre ? 95 : 120);
+  ctx.textAlign = 'center'; ctx.textBaseline = 'alphabetic';
+  police(ctx, 600, carre ? 46 : 54); ctx.fillStyle = '#fff'; ctx.fillText('Vos commerces de Belley', W / 2, y);
+  y += carre ? 110 : 135; police(ctx, 800, carre ? 108 : 128); ctx.fillStyle = C.or; ctx.fillText('ouverts', W / 2, y);
+  y += carre ? 70 : 85; police(ctx, 600, carre ? 42 : 50); ctx.fillStyle = '#fff'; ctx.fillText('les dimanches & lundis', W / 2, y);
+  y += carre ? 58 : 66; police(ctx, 500, carre ? 36 : 42); ctx.fillText('de décembre', W / 2, y);
+  y += story ? 120 : carre ? 60 : 90;
+  const lignes = [['DIM.', dates.filter(d => d.wd === 0), C.rouge], ['LUN.', dates.filter(d => d.wd === 1), C.vert]];
+  lignes.forEach(([lab, ds, coul]) => {
+    if (!ds.length) return;
+    const pw = 120, gap = 16, total = 130 + ds.length * (pw + gap) - gap, x0 = (W - total) / 2;
+    police(ctx, 700, 30); ctx.fillStyle = '#fff'; ctx.textAlign = 'left'; ctx.textBaseline = 'middle'; ctx.fillText(lab, x0, y + 34);
+    ds.forEach((d, i) => {
+      const x = x0 + 130 + i * (pw + gap);
+      ctx.fillStyle = coul; rr(ctx, x, y, pw, 68, 34); ctx.fill();
+      police(ctx, 700, 32); ctx.fillStyle = '#fff'; ctx.textAlign = 'center'; ctx.fillText(d.j + ' déc.', x + pw / 2, y + 35);
+    });
+    y += 90;
+  });
+  y += story ? 90 : carre ? 20 : 50;
+  police(ctx, 500, 28, true); ctx.fillStyle = 'rgba(255,255,255,.85)'; ctx.textAlign = 'center'; ctx.textBaseline = 'alphabetic';
+  ctx.fillText('Faites défiler pour trouver votre commerce  →', W / 2, Math.min(y, H - 120));
+  pied(ctx, W, H, 0, 0, '');
+}
+
+/* ---------- Visuel liste ---------- */
+function geometrie(W, H) {
+  const story = H > 1500, carre = H < 1200;
+  const yLogo = story ? 150 : 92, hLogo = carre ? 92 : 104;
+  const yTitre = yLogo + hLogo + (carre ? 62 : 72);
+  const ySous = yTitre + (carre ? 40 : 46);
+  const top = ySous + (carre ? 30 : 36);
+  const bas = H - 112;
+  return { yLogo, hLogo, yTitre, ySous, top, bas, enTete: 78, ligne: carre ? 58 : 62, carre };
+}
+function capacite(W, H) { const g = geometrie(W, H); return Math.floor((g.bas - g.top - g.enTete - 14) / g.ligne); }
+
+function liste(ctx, W, H, type, dates, lignes, page, pages, note) {
+  fond(ctx, W, H);
+  const g = Object.assign({}, geometrie(W, H));
+  g.ligne = Math.max(g.ligne, Math.min(Math.round(g.ligne * 1.3), Math.floor((g.bas - g.top - g.enTete - 14) / Math.max(1, lignes.length))));
+  carteLogo(ctx, W, g.yLogo, g.hLogo);
+  ctx.textAlign = 'center'; ctx.textBaseline = 'alphabetic';
+  police(ctx, 800, g.carre ? 54 : 62); ctx.fillStyle = '#fff';
+  ctx.fillText(type === 'dim' ? 'Ouverts le dimanche' : 'Ouverts le lundi', W / 2, g.yTitre);
+  police(ctx, 600, g.carre ? 25 : 28); ctx.fillStyle = C.or;
+  ctx.fillText('Vos commerces de Belley · décembre 2026', W / 2, g.ySous);
+
+  const px = 40, pw = W - 80, ph = g.enTete + lignes.length * g.ligne + 14;
+  ctx.save(); ctx.shadowColor = 'rgba(0,0,0,.3)'; ctx.shadowBlur = 24; ctx.fillStyle = '#fff'; rr(ctx, px, g.top, pw, ph, 26); ctx.fill(); ctx.restore();
+  ctx.fillStyle = type === 'dim' ? C.rouge : C.vert; rr(ctx, px, g.top, pw, g.enTete, [26, 26, 0, 0]); ctx.fill();
+
+  const colW = 142, nomW = pw - 40 - dates.length * colW, x0 = px + 22;
+  ctx.textBaseline = 'middle'; ctx.fillStyle = '#fff';
+  police(ctx, 700, 25); ctx.textAlign = 'left'; ctx.fillText('Commerce', x0, g.top + g.enTete / 2);
+  dates.forEach((d, i) => {
+    const cx = x0 + nomW + i * colW + colW / 2;
+    ctx.textAlign = 'center';
+    police(ctx, 600, 19); ctx.fillStyle = 'rgba(255,255,255,.85)'; ctx.fillText(type === 'dim' ? 'DIMANCHE' : 'LUNDI', cx, g.top + 25);
+    police(ctx, 800, 29); ctx.fillStyle = '#fff'; ctx.fillText(d.j + ' déc.', cx, g.top + 53);
+  });
+
+  lignes.forEach((c, r) => {
+    const y = g.top + g.enTete + r * g.ligne, m = y + g.ligne / 2;
+    if (r % 2) { ctx.fillStyle = C.creme; ctx.fillRect(px, y, pw, g.ligne); }
+    // Nom
+    ctx.fillStyle = C.texte; ctx.textAlign = 'left';
+    police(ctx, 600, 25);
+    if (ctx.measureText(c.nom).width <= nomW - 16) ctx.fillText(c.nom, x0, m);
+    else {
+      police(ctx, 600, 21); const l = deuxLignes(ctx, c.nom, nomW - 16);
+      if (l.length === 1) ctx.fillText(l[0], x0, m); else { ctx.fillText(l[0], x0, m - 12); ctx.fillText(l[1], x0, m + 13); }
+    }
+    // Jours
+    dates.forEach((d, i) => {
+      const cx = x0 + nomW + i * colW + colW / 2, v = c.jours[d.iso];
+      ctx.textAlign = 'center';
+      if (!v) { police(ctx, 500, 24); ctx.fillStyle = '#c9c2b8'; ctx.fillText('–', cx, m); return; }
+      if (ferme(v)) { police(ctx, 500, 21, true); ctx.fillStyle = C.ferme; ctx.fillText('Fermé', cx, m); return; }
+      const parts = v.split(/\s*\/\s*/);
+      ctx.fillStyle = '#eaf6ee'; rr(ctx, cx - colW / 2 + 7, y + 6, colW - 14, g.ligne - 12, 10); ctx.fill();
+      ctx.fillStyle = C.vert;
+      if (parts.length === 1) { ajuster(ctx, parts[0], colW - 24, 700, 23, 15); ctx.fillText(parts[0], cx, m + 1); }
+      else {
+        const t = Math.min(ajuster(ctx, parts[0], colW - 24, 700, 19, 13), ajuster(ctx, parts[1], colW - 24, 700, 19, 13));
+        police(ctx, 700, t); ctx.fillText(parts[0], cx, m - 11); ctx.fillText(parts[1], cx, m + 12);
+      }
+    });
+    if (r < lignes.length - 1) { ctx.fillStyle = '#eee7dc'; ctx.fillRect(px + 16, y + g.ligne - 1, pw - 32, 1); }
+  });
+  pied(ctx, W, H, page, pages, note);
+}
+
+/* ---------- Construction des visuels ---------- */
+function infoDate(iso) { const d = new Date(iso + 'T12:00:00Z'); return { iso, wd: d.getUTCDay(), j: d.getUTCDate() }; }
+function plan() {
+  const [W, H] = FORMATS[$('#format').value];
+  const dates = DATA.dates.map(infoDate);
+  const masquer = $('#masquer').checked;
+  const visuels = [];
+  if ($('#couverture').checked) visuels.push({ nom: 'couverture', dessiner: ctx => couverture(ctx, W, H, dates) });
+  $('#contenu').value.split(',').forEach(type => {
+    const ds = dates.filter(d => (type === 'dim') === (d.wd === 0));
+    let cs = DATA.commerces.slice().sort((a, b) => a.nom.localeCompare(b.nom, 'fr', { sensitivity: 'base' }));
+    if (masquer) cs = cs.filter(c => ds.some(d => c.jours[d.iso] && !ferme(c.jours[d.iso])));
+    if (!cs.length) return;
+    const cap = capacite(W, H), n = Math.ceil(cs.length / cap), par = Math.ceil(cs.length / n);
+    const note = masquer ? (type === 'dim' ? 'Les commerces non listés sont fermés le dimanche.' : 'Les commerces non listés sont fermés le lundi.') : '';
+    for (let p = 0; p < n; p++) {
+      const lot = cs.slice(p * par, (p + 1) * par);
+      visuels.push({ nom: `${type === 'dim' ? 'dimanches' : 'lundis'}-${p + 1}`, dessiner: ctx => liste(ctx, W, H, type, ds, lot, p + 1, n, note) });
+    }
+  });
+  return { W, H, visuels };
+}
+function rendre() {
+  if (!DATA) return;
+  const { W, H, visuels } = plan();
+  $('#apercu').innerHTML = '';
+  visuels.forEach((v, i) => {
+    const cv = document.createElement('canvas'); cv.width = W; cv.height = H;
+    v.dessiner(cv.getContext('2d'));
+    const bloc = document.createElement('div'); bloc.className = 'vignette';
+    bloc.appendChild(cv);
+    const bas = document.createElement('div');
+    bas.innerHTML = `<span>${i + 1}. ${v.nom}</span>`;
+    const b = document.createElement('button'); b.type = 'button'; b.textContent = '⬇ PNG';
+    b.onclick = () => telecharger(cv, `ucab-ouvertures-${String(i + 1).padStart(2, '0')}-${v.nom}.png`);
+    bas.appendChild(b); bloc.appendChild(bas);
+    $('#apercu').appendChild(bloc);
+  });
+  const nb = DATA.commerces.length;
+  $('#etat').textContent = (DEMO ? 'Mode démo : données fictives (URL du script non renseignée dans config.js). ' : '') +
+    `${nb} commerce(s) publié(s) · ${visuels.length} visuel(s) de ${W} × ${H} px.`;
+}
+function telecharger(cv, nom) {
+  try {
+    cv.toBlob(b => { const a = document.createElement('a'); a.href = URL.createObjectURL(b); a.download = nom; document.body.appendChild(a); a.click(); a.remove(); setTimeout(() => URL.revokeObjectURL(a.href), 3000); }, 'image/png');
+  } catch (e) {
+    alert('Téléchargement impossible depuis un fichier ouvert en local. Ouvrez cette page depuis son adresse GitHub Pages.');
+  }
+}
+$('#tout').addEventListener('click', () => {
+  const vs = [...document.querySelectorAll('.vignette')];
+  vs.forEach((v, i) => setTimeout(() => v.querySelector('button').click(), i * 500));
+});
+['format', 'contenu', 'couverture', 'masquer'].forEach(id => $('#' + id).addEventListener('change', rendre));
+
+function charger() {
+  $('#etat').textContent = 'Chargement des données…';
+  if (DEMO) { $('#etat').classList.add('demo'); DATA = demo(); rendre(); return; }
+  fetch(URL_SCRIPT + (URL_SCRIPT.includes('?') ? '&' : '?') + 't=' + Date.now()).then(r => r.json()).then(d => { DATA = d; rendre(); })
+    .catch(() => { $('#etat').textContent = 'Impossible de charger les données. Vérifiez l\'URL dans config.js puis rechargez.'; });
+}
+$('#recharger').addEventListener('click', charger);
+
+logo.onload = () => { logoOk = true; demarrer(); };
+logo.onerror = () => { logoOk = false; demarrer(); };
+logo.src = 'logo-ucab.png';
+let demarre = false;
+function demarrer() {
+  if (demarre) return; demarre = true;
+  const polices = document.fonts ? Promise.all(['500', '600', '700', '800'].map(p => document.fonts.load(`${p} 30px Poppins`)).concat([document.fonts.load('italic 500 30px Poppins')])).catch(() => {}) : Promise.resolve();
+  Promise.race([polices, new Promise(r => setTimeout(r, 2500))]).then(charger);
+}
+</script>
+</body>
+</html>
