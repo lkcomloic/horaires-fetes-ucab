@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Horaires des fêtes 2026 – Commerces de Belley</title>
+<script src="config.js"></script>
+<style>
+:root{--bleu:#1b3f8b;--rouge:#c8102e;--or:#e8a317;--vert:#1d7a35;--fond:#f6f3ee;--trait:#e3ddd3;--texte:#22252b;--doux:#6b6f78}
+*{box-sizing:border-box}
+[hidden]{display:none!important}
+body{margin:0;font-family:system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;background:var(--fond);color:var(--texte);line-height:1.4}
+header{background:var(--bleu);color:#fff;padding:20px 16px 22px;text-align:center}
+header img{height:56px;background:#fff;border-radius:10px;padding:5px 9px;margin-bottom:8px}
+h1{margin:0;font-size:1.6rem}
+.sous{margin:.25rem 0 0;opacity:.9}
+main{max-width:1000px;margin:0 auto;padding:14px 12px 30px}
+.demo{background:#fff3cd;border:1px solid #f0d27a;border-radius:10px;padding:8px 12px;margin-bottom:12px;font-size:.9rem}
+.barre{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin-bottom:12px}
+.vues{display:inline-flex;border:1px solid #cfc8bc;border-radius:10px;overflow:hidden;background:#fff}
+.vues button{border:0;background:none;padding:9px 14px;font:inherit;font-weight:600;cursor:pointer;color:var(--texte)}
+.vues button.on{background:var(--bleu);color:#fff}
+.barre input,.barre select{padding:9px 11px;border:1px solid #cfc8bc;border-radius:10px;font:inherit;background:#fff;flex:1;min-width:150px}
+.imprimer{border:1px solid var(--bleu);background:#fff;color:var(--bleu);border-radius:10px;padding:9px 14px;font:inherit;font-weight:600;cursor:pointer}
+.info-legende{background:#fff;border-left:4px solid var(--or);border-radius:8px;padding:9px 12px;font-size:.9rem;margin-bottom:12px}
+.jours{display:flex;gap:6px;overflow-x:auto;padding:2px 2px 8px;scroll-snap-type:x proximity}
+.jours button{flex:none;scroll-snap-align:start;border:1px solid var(--trait);background:#fff;border-radius:12px;padding:6px 10px 7px;min-width:66px;cursor:pointer;font:inherit;text-align:center;color:var(--texte)}
+.jours button .js{display:block;font-size:.75rem;text-transform:uppercase;color:var(--doux)}
+.jours button .jn{display:block;font-size:1.35rem;font-weight:700;line-height:1.1}
+.jours button .jm{display:block;font-size:.75rem;color:var(--doux)}
+.jours button.fete{border-color:var(--rouge)}
+.jours button.on{background:var(--rouge);border-color:var(--rouge);color:#fff}
+.jours button.on span{color:#fff}
+.jours button.passe{opacity:.55}
+.jour-titre{display:flex;align-items:baseline;gap:10px;flex-wrap:wrap;margin:10px 0 4px}
+.jour-titre h2{margin:0;font-size:1.35rem;color:var(--bleu)}
+.tag{font-size:.75rem;background:var(--rouge);color:#fff;border-radius:999px;padding:2px 9px;font-weight:600}
+.cat{margin-top:14px}
+.cat h3{font-size:.82rem;text-transform:uppercase;letter-spacing:.04em;color:var(--doux);margin:0 0 6px;border-bottom:1px solid var(--trait);padding-bottom:4px}
+.cartes{display:grid;grid-template-columns:repeat(auto-fill,minmax(270px,1fr));gap:8px}
+.carte{background:#fff;border-radius:10px;padding:9px 12px;box-shadow:0 1px 2px rgba(0,0,0,.06);display:flex;justify-content:space-between;gap:10px;align-items:flex-start}
+.carte .nom{font-weight:700}
+.carte .act{font-size:.82rem;color:var(--doux)}
+.carte .inf{font-size:.82rem;color:var(--bleu);margin-top:2px}
+.h{background:#e3f3e7;color:var(--vert);font-weight:700;border-radius:8px;padding:3px 8px;font-size:.88rem;white-space:nowrap;text-align:right}
+.fermes{margin-top:18px;background:#fbecee;border-radius:10px;padding:10px 12px;font-size:.92rem}
+.fermes b{color:#a01c1c}
+.vide{color:var(--doux);padding:20px 0;text-align:center}
+.tableau{overflow:auto;background:#fff;border-radius:10px;box-shadow:0 1px 2px rgba(0,0,0,.06);max-height:75vh}
+table{border-collapse:separate;border-spacing:0;font-size:.85rem;min-width:100%}
+th,td{padding:6px 8px;border-bottom:1px solid #eee;text-align:center;white-space:nowrap}
+thead th{position:sticky;top:0;background:var(--bleu);color:#fff;z-index:2;font-weight:600}
+thead th.fete{background:var(--rouge)}
+th.c,td.c{position:sticky;left:0;background:#fff;text-align:left;z-index:1;white-space:normal;min-width:170px;max-width:220px}
+thead th.c{background:var(--bleu);z-index:3}
+tr.grp td{background:#f4f1eb;text-align:left;font-weight:700;color:var(--bleu);font-size:.8rem;text-transform:uppercase;position:static}
+td.o{color:var(--vert);font-weight:600}
+td.f{color:#a01c1c;background:#fbecee;font-weight:600}
+td.u{color:#bbb}
+.pied{font-size:.82rem;color:var(--doux);margin-top:16px;text-align:center}
+#impression{display:none}
+@media(max-width:600px){h1{font-size:1.3rem}.cartes{grid-template-columns:1fr}.barre input,.barre select{min-width:120px}}
+@media print{
+  @page{margin:12mm}
+  body{background:#fff;font-size:10pt}
+  header{background:#fff;color:#000;padding:0 0 6px;border-bottom:2px solid var(--bleu)}
+  header img{height:40px;padding:0}
+  .barre,.jours,#vue-jour,#vue-commerce,.demo,.imprimer{display:none!important}
+  #impression{display:block;column-count:2;column-gap:10mm}
+  .p-jour{break-inside:avoid;margin-bottom:8px}
+  .p-jour h2{font-size:11pt;margin:6px 0 2px;color:var(--rouge)}
+  .p-jour div{font-size:9pt}
+}
+</style>
+</head>
+<body>
+<header>
+  <img src="logo-ucab.png" alt="UCAB" onerror="this.remove()">
+  <h1>Horaires des fêtes 2026</h1>
+  <p class="sous">Les ouvertures et fermetures exceptionnelles de vos commerces de Belley</p>
+</header>
+<main>
+  <div class="demo" id="demo" hidden>Mode démo : données fictives, tant que l'URL du script n'est pas renseignée dans config.js.</div>
+  <div class="barre">
+    <div class="vues" role="tablist">
+      <button type="button" class="on" data-v="jour">Par jour</button><button type="button" data-v="commerce">Par commerce</button>
+    </div>
+    <input type="search" id="recherche" placeholder="Rechercher un commerce…" aria-label="Rechercher un commerce">
+    <select id="filtre-cat" aria-label="Catégorie"></select>
+    <button type="button" class="imprimer" onclick="window.print()">🖨 Imprimer</button>
+  </div>
+  <div class="info-legende">Seuls les <b>horaires exceptionnels</b> sont indiqués. Un commerce qui n'apparaît pas un jour donné est ouvert à ses horaires habituels.</div>
+
+  <section id="vue-jour">
+    <div class="jours" id="jours"></div>
+    <div id="contenu-jour"><p class="vide">Chargement…</p></div>
+  </section>
+  <section id="vue-commerce" hidden><div class="tableau" id="tableau"></div></section>
+  <div id="impression"></div>
+  <p class="pied">Calendrier proposé par l'UCAB – Union des Commerçants et Artisans de Belley.<br>Horaires communiqués par les commerçants, sous réserve de modification.</p>
+</main>
+
+<script>
+const CFG = window.UCAB_CONFIG || {};
+const URL_SCRIPT = (CFG.SCRIPT_URL || '').trim();
+const DEMO = !URL_SCRIPT;
+const JC = ['dim.','lun.','mar.','mer.','jeu.','ven.','sam.'];
+const JL = ['Dimanche','Lundi','Mardi','Mercredi','Jeudi','Vendredi','Samedi'];
+const MC = ['janv.','févr.','mars','avr.','mai','juin','juil.','août','sept.','oct.','nov.','déc.'];
+const ML = ['janvier','février','mars','avril','mai','juin','juillet','août','septembre','octobre','novembre','décembre'];
+const FETES = {'12-24':'Réveillon','12-25':'Noël · férié','12-31':'Saint-Sylvestre','01-01':"Jour de l'An · férié"};
+const $ = s => document.querySelector(s);
+const esc = s => String(s == null ? '' : s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const estFerme = v => /^\s*ferm[ée]e?s?\s*\.?\s*$/i.test(v);
+const info = iso => { const d = new Date(iso + 'T12:00:00Z'); return { iso, wd: d.getUTCDay(), j: d.getUTCDate(), m: d.getUTCMonth(), md: iso.slice(5) }; };
+const jnum = d => d.j === 1 ? '1er' : d.j;
+const titreJour = d => `${JL[d.wd]} ${jnum(d)} ${ML[d.m]}`;
+
+let DATA = null, DATES = [], jourSel = null, vue = 'jour';
+
+function demo() {
+  const C = [['Boulangerie de la République','Alimentaire – Vins & spiritueux – Boucherie','Pains, pâtisseries, sandwichs'],['La Boucherie des Halles','Alimentaire – Vins & spiritueux – Boucherie','Boucher – Charcutier'],['Le Cellier des 3 Pierres','Alimentaire – Vins & spiritueux – Boucherie','Vins et spiritueux'],['Pâtisserie Marianne Lorieux','Alimentaire – Vins & spiritueux – Boucherie','Pâtissier – Chocolatier – Glacier'],['Amour de Pivoine','Décoration – Maison – Fleuriste','Fleuriste'],["Scène d'Intérieur",'Décoration – Maison – Fleuriste','Décoration – Art de la table'],['Côté Presse','Librairie – Presse – Papeterie','Presse – Librairie'],['Au Bonheur des Dames','Prêt-à-porter – Chaussures','Prêt-à-porter femme'],['Hugo Chaussures','Prêt-à-porter – Chaussures','Chaussures mixtes'],['Guilde des Orfèvres – Bijouterie Lançon','Bijouterie – Maroquinerie','Bijouterie – Horlogerie'],['Brasserie des Terreaux','Restaurants – Bars','Spécialités bugistes'],['Optic 2000','Optique – Médical','Opticien – Solaires']];
+  const J = {
+    0: {'2026-12-13':'9h–12h30','2026-12-20':'7h–13h','2026-12-24':'7h–18h','2026-12-25':'Fermé','2026-12-27':'7h–12h30','2026-12-31':'7h–17h','2027-01-01':'Fermé'},
+    1: {'2026-12-20':'8h–12h30','2026-12-24':'7h30–17h','2026-12-25':'Fermé','2026-12-31':'7h30–16h','2027-01-01':'Fermé'},
+    2: {'2026-12-07':'9h30–12h / 14h30–19h','2026-12-14':'9h30–12h / 14h30–19h','2026-12-20':'10h–18h','2026-12-21':'9h30–19h','2026-12-24':'9h–17h','2026-12-31':'9h–17h'},
+    3: {'2026-12-20':'8h–12h30','2026-12-24':'8h–17h','2026-12-27':'8h–12h30','2026-12-31':'8h–16h'},
+    4: {'2026-12-13':'9h–12h30','2026-12-20':'9h–13h','2026-12-24':'8h30–18h','2026-12-31':'8h30–17h'},
+    5: {'2026-12-14':'10h–19h','2026-12-20':'10h–18h','2026-12-21':'10h–19h','2026-12-28':'Fermé','2026-12-29':'Fermé','2026-12-30':'Fermé'},
+    6: {'2026-12-25':'8h–12h','2027-01-01':'8h–12h'},
+    7: {'2026-12-20':'10h–18h','2026-12-21':'10h–19h','2026-12-24':'9h30–16h'},
+    8: {'2026-12-20':'14h–18h','2026-12-21':'9h–12h / 14h–19h','2026-12-24':'9h–17h'},
+    9: {'2026-12-13':'10h–18h','2026-12-20':'10h–18h','2026-12-21':'9h30–19h','2026-12-24':'9h–17h','2026-12-26':'Fermé'},
+    10: {'2026-12-24':'Fermé','2026-12-25':'Fermé','2026-12-31':'Réveillon sur réservation'},
+    11: {'2026-12-24':'9h–12h','2026-12-26':'Fermé','2026-12-31':'9h–12h','2027-01-02':'Fermé'}
+  };
+  const dates = []; for (let t = Date.parse('2026-12-01T12:00:00Z'); t <= Date.parse('2027-01-02T12:00:00Z'); t += 864e5) dates.push(new Date(t).toISOString().slice(0,10));
+  return { categories: ['Alimentaire – Vins & spiritueux – Boucherie','Bijouterie – Maroquinerie','Culture – Loisirs','Décoration – Maison – Fleuriste','Esthétique – Beauté','Garage automobile','Informatique – Électroménager','Librairie – Presse – Papeterie','Optique – Médical','Photographes','Prêt-à-porter – Chaussures','Sport','Restaurants – Bars'],
+    dates, commerces: C.map((c, i) => ({ nom: c[0], cat: c[1], act: c[2], info: i === 2 ? 'Dégustation les samedis de décembre' : '', jours: J[i] || {} })) };
+}
+
+function filtre(c) {
+  const q = $('#recherche').value.trim().toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g, '');
+  const k = $('#filtre-cat').value;
+  if (k && c.cat !== k) return false;
+  if (!q) return true;
+  return (c.nom + ' ' + (c.act || '')).toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g, '').includes(q);
+}
+function ordreCats() {
+  const extra = [...new Set(DATA.commerces.map(c => c.cat))].filter(c => !DATA.categories.includes(c));
+  return DATA.categories.concat(extra);
+}
+
+function rendreJours() {
+  const auj = new Date().toISOString().slice(0, 10);
+  $('#jours').innerHTML = DATES.map(d => {
+    const n = DATA.commerces.filter(c => c.jours[d.iso] && !estFerme(c.jours[d.iso])).length;
+    return `<button type="button" data-iso="${d.iso}" class="${FETES[d.md] ? 'fete ' : ''}${d.iso < auj ? 'passe ' : ''}${d.iso === jourSel ? 'on' : ''}" title="${n} ouverture(s) exceptionnelle(s)">
+      <span class="js">${JC[d.wd]}</span><span class="jn">${d.j}</span><span class="jm">${MC[d.m]}</span></button>`;
+  }).join('');
+  const on = $('#jours .on'); if (on) on.scrollIntoView({ block: 'nearest', inline: 'center' });
+}
+
+function rendreJour() {
+  const z = $('#contenu-jour');
+  if (!DATES.length) { z.innerHTML = '<p class="vide">Aucun horaire exceptionnel publié pour le moment. Revenez bientôt !</p>'; return; }
+  const d = info(jourSel);
+  const liste = DATA.commerces.filter(c => c.jours[d.iso] && filtre(c));
+  const ouverts = liste.filter(c => !estFerme(c.jours[d.iso])), fermes = liste.filter(c => estFerme(c.jours[d.iso]));
+  let h = `<div class="jour-titre"><h2>${titreJour(d)}</h2>${FETES[d.md] ? `<span class="tag">${FETES[d.md]}</span>` : ''}</div>`;
+  if (!ouverts.length && !fermes.length) h += '<p class="vide">Aucun résultat pour ce jour avec ces filtres.</p>';
+  ordreCats().forEach(cat => {
+    const cs = ouverts.filter(c => c.cat === cat).sort((a, b) => a.nom.localeCompare(b.nom, 'fr'));
+    if (!cs.length) return;
+    h += `<div class="cat"><h3>${esc(cat)}</h3><div class="cartes">` + cs.map(c => `
+      <div class="carte"><div><div class="nom">${esc(c.nom)}</div>${c.act ? `<div class="act">${esc(c.act)}</div>` : ''}${c.info ? `<div class="inf">${esc(c.info)}</div>` : ''}</div>
+      <div class="h">${esc(c.jours[d.iso]).replace(' / ', '<br>')}</div></div>`).join('') + '</div></div>';
+  });
+  if (fermes.length) h += `<div class="fermes"><b>Fermés ce jour :</b> ${fermes.sort((a, b) => a.nom.localeCompare(b.nom, 'fr')).map(c => esc(c.nom)).join(' · ')}</div>`;
+  z.innerHTML = h;
+}
+
+function rendreTableau() {
+  const cs = DATA.commerces.filter(filtre);
+  if (!cs.length) { $('#tableau').innerHTML = '<p class="vide">Aucun commerce ne correspond.</p>'; return; }
+  let h = '<table><thead><tr><th class="c">Commerce</th>' + DATES.map(d =>
+    `<th class="${FETES[d.md] ? 'fete' : ''}" title="${titreJour(d)}">${JC[d.wd]}<br>${d.j}/${String(d.m + 1).padStart(2, '0')}</th>`).join('') + '</tr></thead><tbody>';
+  ordreCats().forEach(cat => {
+    const g = cs.filter(c => c.cat === cat).sort((a, b) => a.nom.localeCompare(b.nom, 'fr'));
+    if (!g.length) return;
+    h += `<tr class="grp"><td colspan="${DATES.length + 1}">${esc(cat)}</td></tr>`;
+    g.forEach(c => {
+      h += `<tr><td class="c"><b>${esc(c.nom)}</b>${c.info ? `<br><small style="color:var(--bleu)">${esc(c.info)}</small>` : ''}</td>` + DATES.map(d => {
+        const v = c.jours[d.iso];
+        if (!v) return '<td class="u" title="Horaires habituels">·</td>';
+        return `<td class="${estFerme(v) ? 'f' : 'o'}">${esc(v).replace(' / ', '<br>')}</td>`;
+      }).join('') + '</tr>';
+    });
+  });
+  $('#tableau').innerHTML = h + '</tbody></table>';
+}
+
+function rendreImpression() {
+  $('#impression').innerHTML = DATES.map(d => {
+    const l = DATA.commerces.filter(c => c.jours[d.iso] && filtre(c));
+    if (!l.length) return '';
+    const o = l.filter(c => !estFerme(c.jours[d.iso])).sort((a, b) => a.nom.localeCompare(b.nom, 'fr'));
+    const f = l.filter(c => estFerme(c.jours[d.iso])).sort((a, b) => a.nom.localeCompare(b.nom, 'fr'));
+    return `<div class="p-jour"><h2>${titreJour(d)}${FETES[d.md] ? ' – ' + FETES[d.md] : ''}</h2>` +
+      o.map(c => `<div><b>${esc(c.nom)}</b> : ${esc(c.jours[d.iso])}</div>`).join('') +
+      (f.length ? `<div style="color:#a01c1c">Fermés : ${f.map(c => esc(c.nom)).join(', ')}</div>` : '') + '</div>';
+  }).join('');
+}
+
+function tout() {
+  if (vue === 'jour') { rendreJours(); rendreJour(); } else rendreTableau();
+  rendreImpression(); hauteur();
+}
+
+function init(data) {
+  DATA = data;
+  DATES = data.dates.filter(iso => data.commerces.some(c => c.jours[iso])).map(info);
+  const auj = new Date().toISOString().slice(0, 10);
+  jourSel = (DATES.find(d => d.iso >= auj) || DATES[0] || {}).iso;
+  $('#filtre-cat').innerHTML = '<option value="">Toutes les catégories</option>' +
+    ordreCats().filter(c => data.commerces.some(x => x.cat === c)).map(c => `<option>${esc(c)}</option>`).join('');
+  tout();
+}
+
+$('#jours').addEventListener('click', e => { const b = e.target.closest('button'); if (!b) return; jourSel = b.dataset.iso; tout(); });
+document.querySelectorAll('.vues button').forEach(b => b.addEventListener('click', () => {
+  vue = b.dataset.v;
+  document.querySelectorAll('.vues button').forEach(x => x.classList.toggle('on', x === b));
+  $('#vue-jour').hidden = vue !== 'jour'; $('#vue-commerce').hidden = vue !== 'commerce';
+  tout();
+}));
+$('#recherche').addEventListener('input', () => DATA && tout());
+$('#filtre-cat').addEventListener('change', () => DATA && tout());
+
+// Hauteur automatique quand la page est intégrée dans un iframe (site WordPress)
+function hauteur() { if (window.parent !== window) window.parent.postMessage({ ucabHoraires: document.documentElement.scrollHeight }, '*'); }
+if ('ResizeObserver' in window) new ResizeObserver(hauteur).observe(document.body);
+
+$('#demo').hidden = !DEMO;
+if (DEMO) init(demo());
+else fetch(URL_SCRIPT).then(r => r.json()).then(init).catch(() => {
+  $('#contenu-jour').innerHTML = '<p class="vide">Le calendrier n\'a pas pu être chargé. Réessayez dans un instant.</p>';
+});
+</script>
+</body>
+</html>
