@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="robots" content="noindex">
-<title>Vos horaires des fêtes 2026 – UCAB Belley</title>
+<title>Vos ouvertures de décembre 2026 – UCAB Belley</title>
 <script src="config.js"></script>
 <style>
 :root{--bleu:#1b3f8b;--rouge:#c8102e;--or:#e8a317;--vert:#1d7a35;--fond:#f6f3ee;--trait:#e3ddd3;--texte:#22252b;--doux:#6b6f78;--champ:#cfc8bc}
@@ -13,11 +13,11 @@
 body{margin:0;font-family:system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;background:var(--fond);color:var(--texte);line-height:1.45}
 header{background:var(--bleu);color:#fff;padding:22px 16px 34px;text-align:center}
 header img{height:64px;background:#fff;border-radius:10px;padding:6px 10px;margin-bottom:10px}
-h1{margin:0;font-size:1.75rem}
+h1{margin:0;font-size:1.7rem}
 .sous{opacity:.9;margin:.3rem 0 0}
 .guirlande{display:block;margin:10px auto 0;max-width:520px;width:100%;height:auto}
 .limite{display:inline-block;margin-top:10px;background:var(--or);color:#1a1a1a;font-weight:700;padding:6px 16px;border-radius:999px}
-main{max-width:820px;margin:-18px auto 40px;padding:0 12px;position:relative}
+main{max-width:760px;margin:-18px auto 40px;padding:0 12px;position:relative}
 .demo{background:#fff3cd;border:1px solid #f0d27a;border-radius:10px;padding:8px 12px;margin-bottom:12px;font-size:.9rem}
 .bloc{background:#fff;border-radius:14px;padding:18px 18px 20px;margin-bottom:16px;box-shadow:0 1px 3px rgba(0,0,0,.07)}
 .bloc h2{margin:0 0 4px;font-size:1.15rem;color:var(--bleu);display:flex;gap:10px;align-items:center}
@@ -25,50 +25,64 @@ main{max-width:820px;margin:-18px auto 40px;padding:0 12px;position:relative}
 .aide{color:var(--doux);font-size:.92rem;margin:.2rem 0 .8rem}
 label.ch{display:block;font-weight:600;font-size:.93rem;margin:12px 0 4px}
 label.ch small{font-weight:400;color:var(--doux)}
-input[type=text],input[type=email],input[type=tel],input[type=date],select,textarea{width:100%;padding:10px 12px;border:1px solid var(--champ);border-radius:9px;font:inherit;background:#fff;color:inherit}
+input[type=text],input[type=email],input[type=tel],textarea{width:100%;padding:10px 12px;border:1px solid var(--champ);border-radius:9px;font:inherit;background:#fff;color:inherit}
 textarea{min-height:70px;resize:vertical}
-input:focus,select:focus,textarea:focus,button:focus-visible{outline:2px solid var(--bleu);outline-offset:1px}
+input:focus,textarea:focus,button:focus-visible{outline:2px solid var(--bleu);outline-offset:1px}
 .deux{display:grid;grid-template-columns:1fr 1fr;gap:0 14px}
-.note-cat{font-size:.88rem;color:var(--doux);margin-top:6px}
-.case{display:flex;gap:10px;align-items:flex-start;margin:12px 0 0;font-weight:600;cursor:pointer}
+.case{display:flex;gap:10px;align-items:flex-start;margin:12px 0 0;cursor:pointer}
 .case input{width:20px;height:20px;margin-top:1px;flex:none}
-.conges{display:flex;flex-wrap:wrap;gap:8px 12px;align-items:flex-end;background:#f4f1eb;border-radius:10px;padding:10px 12px;margin:6px 0 4px}
-.conges label{font-size:.88rem;font-weight:600;display:flex;flex-direction:column;gap:3px}
-.conges input{width:auto}
-.btn2{background:#fff;border:1px solid var(--bleu);color:var(--bleu);border-radius:9px;padding:9px 14px;font:inherit;font-weight:600;cursor:pointer}
-.grille.off{opacity:.3;pointer-events:none}
-.semaine h3{font-size:.8rem;text-transform:uppercase;letter-spacing:.05em;color:var(--doux);margin:18px 0 6px}
-.jour{border:1px solid var(--trait);border-radius:10px;padding:8px 10px;margin-bottom:6px;background:#fff;transition:background .15s}
-.jour.cle{border-left:4px solid var(--rouge)}
+.progression{font-size:.9rem;font-weight:600;color:var(--bleu);margin:0 0 8px}
+.jour{border:1px solid var(--trait);border-radius:10px;padding:10px 12px;margin-bottom:8px;background:#fff;transition:background .15s}
+.jour.dim{border-left:4px solid var(--rouge)}
+.jour.lun{border-left:4px solid var(--bleu)}
 .jour.mod-O{background:#eef8f0;border-color:#b9e0c2}
 .jour.mod-F{background:#fbecee;border-color:#efc0c6}
 .jour.err{outline:2px solid var(--rouge)}
 .j-tete{display:flex;justify-content:space-between;align-items:center;gap:6px 10px;flex-wrap:wrap}
-.j-nom{min-width:120px}
-.tag{font-size:.72rem;background:var(--rouge);color:#fff;border-radius:999px;padding:1px 8px;margin-left:6px;font-weight:600;white-space:nowrap}
+.j-nom{font-size:1.02rem}
 .seg{display:inline-flex;border:1px solid var(--champ);border-radius:9px;overflow:hidden;background:#fff}
-.seg button{border:0;background:transparent;padding:7px 12px;font:inherit;font-size:.88rem;cursor:pointer;color:var(--texte)}
+.seg button{border:0;background:transparent;padding:8px 18px;font:inherit;font-size:.92rem;cursor:pointer;color:var(--texte)}
 .seg button+button{border-left:1px solid var(--champ)}
-.seg button.on[data-m=H]{background:#e6e2da;font-weight:600}
 .seg button.on[data-m=O]{background:var(--vert);color:#fff;font-weight:600}
 .seg button.on[data-m=F]{background:var(--rouge);color:#fff;font-weight:600}
-.plages{display:flex;flex-wrap:wrap;gap:8px 20px;margin-top:8px;font-size:.9rem}
-.plage{display:flex;align-items:center;gap:6px;flex-wrap:wrap}
-.plage>span:first-child{min-width:86px;font-weight:600}
+.plages{display:flex;flex-wrap:wrap;gap:8px 20px;margin-top:10px;font-size:.92rem}
+.plage{display:flex;align-items:center;gap:6px}
+.plage>span:first-child{min-width:84px;font-weight:600}
 .plage input{padding:6px;border:1px solid var(--champ);border-radius:7px;font:inherit;background:#fff}
 .astuce{font-size:.8rem;color:var(--doux);width:100%}
-.copier{background:none;border:0;color:var(--bleu);text-decoration:underline;cursor:pointer;padding:6px 0 0;font:inherit;font-size:.86rem;text-align:left}
+.copier{margin-top:10px;background:#fff;border:1px solid var(--bleu);color:var(--bleu);border-radius:9px;padding:8px 12px;font:inherit;font-size:.9rem;font-weight:600;cursor:pointer}
+.copier:hover{background:#eef2fa}
+.msg-err{color:var(--rouge);font-size:.85rem;margin-top:6px;font-weight:600}
 .autres{background:none;border:0;padding:0;margin-left:8px;font:inherit;font-size:.78rem;color:var(--bleu);cursor:pointer;text-decoration:underline dotted}
-.liste-autres{font-size:.82rem;color:var(--doux);background:#f4f1eb;border-radius:8px;padding:6px 9px;margin-top:6px}
+.liste-autres{font-size:.82rem;color:var(--doux);background:#f4f1eb;border-radius:8px;padding:6px 9px;margin-top:8px}
 .liste-autres b{color:var(--texte)}
-.msg-err{color:var(--rouge);font-size:.85rem;margin-top:4px;font-weight:600}
-.resume{background:#f4f1eb;border-radius:10px;padding:10px 14px;margin:14px 0;font-size:.95rem}
-.btn{background:var(--rouge);color:#fff;border:0;border-radius:10px;padding:14px 22px;font:inherit;font-weight:700;font-size:1.05rem;cursor:pointer;width:100%}
+.btn{background:var(--rouge);color:#fff;border:0;border-radius:10px;padding:14px 22px;font:inherit;font-weight:700;font-size:1.05rem;cursor:pointer;width:100%;margin-top:14px}
 .btn[disabled]{opacity:.6;cursor:wait}
 .erreur-glob{color:var(--rouge);font-weight:600;margin:10px 0 0}
 .rgpd{font-size:.82rem;color:var(--doux);margin-top:10px}
 .hp{position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden}
-.toast{position:fixed;left:50%;bottom:20px;transform:translateX(-50%);background:#222;color:#fff;padding:10px 16px;border-radius:9px;font-size:.92rem;opacity:0;transition:opacity .2s;pointer-events:none;z-index:9}
+/* Fenêtre « copier sur d'autres jours » */
+.voile{position:fixed;inset:0;background:rgba(20,25,40,.55);display:grid;place-items:center;padding:14px;z-index:20}
+.fenetre{background:#fff;border-radius:16px;max-width:430px;width:100%;padding:18px;box-shadow:0 10px 40px rgba(0,0,0,.3)}
+.fenetre h3{margin:0 0 4px;color:var(--bleu);font-size:1.1rem}
+.fenetre .src{font-size:.92rem;color:var(--doux);margin:0 0 12px}
+.fenetre .src b{color:var(--vert)}
+.cal{display:grid;grid-template-columns:repeat(7,1fr);gap:4px;text-align:center}
+.cal .te{font-size:.72rem;font-weight:700;color:var(--doux);text-transform:uppercase;padding:2px 0}
+.cal span.j{padding:8px 0;color:#c5c1b9;font-size:.9rem}
+.cal button{border:2px solid var(--trait);background:#fff;border-radius:9px;padding:7px 0;font:inherit;font-weight:700;cursor:pointer;color:var(--texte)}
+.cal button.dim{border-color:#f0b9c1}
+.cal button.lun{border-color:#b7c6e6}
+.cal button.sel{background:var(--vert);border-color:var(--vert);color:#fff}
+.cal button.source{background:var(--or);border-color:var(--or);color:#1a1a1a;cursor:default}
+.raccourcis{display:flex;flex-wrap:wrap;gap:6px;margin:12px 0 4px}
+.raccourcis button{border:1px solid var(--champ);background:#f7f5f1;border-radius:999px;padding:5px 11px;font:inherit;font-size:.82rem;cursor:pointer}
+.legende-cal{font-size:.78rem;color:var(--doux);margin:6px 0 0}
+.actions{display:flex;gap:8px;margin-top:14px}
+.actions button{flex:1;border-radius:10px;padding:11px;font:inherit;font-weight:700;cursor:pointer}
+.actions .ok{background:var(--vert);color:#fff;border:0}
+.actions .annuler{background:#fff;border:1px solid var(--champ);color:var(--texte)}
+.toast{position:fixed;left:50%;bottom:20px;transform:translateX(-50%);background:#222;color:#fff;padding:10px 16px;border-radius:9px;font-size:.92rem;opacity:0;transition:opacity .2s;pointer-events:none;z-index:30}
 .toast.vu{opacity:.95}
 .merci{text-align:center}
 .merci h2{justify-content:center;font-size:1.4rem}
@@ -79,16 +93,17 @@ input:focus,select:focus,textarea:focus,button:focus-visible{outline:2px solid v
   h1{font-size:1.4rem}
   .deux{grid-template-columns:1fr}
   .j-tete{flex-direction:column;align-items:stretch}
-  .seg{display:flex}.seg button{flex:1;padding:8px 4px}
-  .plages{gap:8px}.plage{width:100%;flex-wrap:nowrap}.plage>span:first-child{min-width:78px;font-size:.85rem}.plage input{flex:1;min-width:0}
+  .seg{display:flex}.seg button{flex:1}
+  .plages{gap:8px}.plage{width:100%}.plage>span:first-child{min-width:78px;font-size:.85rem}.plage input{flex:1;min-width:0}
+  .copier{width:100%}
 }
 </style>
 </head>
 <body>
 <header>
   <img src="logo-ucab.png" alt="UCAB" onerror="this.remove()">
-  <h1>Vos horaires pour les fêtes</h1>
-  <p class="sous">Décembre 2026 · Union des Commerçants et Artisans de Belley</p>
+  <h1>Vos ouvertures de décembre</h1>
+  <p class="sous">Dimanches et lundis · Union des Commerçants et Artisans de Belley</p>
   <svg class="guirlande" viewBox="0 0 520 46" aria-hidden="true">
     <path d="M4 6 Q130 40 260 10 T516 8" fill="none" stroke="#e8a317" stroke-width="2"/>
     <g fill="#c8102e"><circle cx="40" cy="20" r="7"/><circle cx="170" cy="25" r="7"/><circle cx="330" cy="20" r="7"/><circle cx="460" cy="14" r="7"/></g>
@@ -104,44 +119,20 @@ input:focus,select:focus,textarea:focus,button:focus-visible{outline:2px solid v
   <form id="form" novalidate>
     <section class="bloc">
       <h2><span class="num">1</span>Votre commerce</h2>
-      <label class="ch" for="commerce">Nom du commerce</label>
-      <select id="commerce" required></select>
-      <div class="note-cat" id="note-cat"></div>
-      <div id="autre" hidden>
-        <label class="ch" for="nom-autre">Nom de votre commerce</label>
-        <input type="text" id="nom-autre" maxlength="80">
-        <div class="deux">
-          <div><label class="ch" for="cat-autre">Catégorie</label><select id="cat-autre"></select>
-            <input type="text" id="cat-libre" maxlength="60" placeholder="Votre catégorie (ex. : Épicerie bio)" hidden style="margin-top:6px"></div>
-          <div><label class="ch" for="act-autre">Activité <small>(ex. : Fleuriste)</small></label><input type="text" id="act-autre" maxlength="80"></div>
-        </div>
-      </div>
+      <label class="ch" for="commerce">Nom du commerce <small>(tel qu'il doit apparaître sur le calendrier)</small></label>
+      <input type="text" id="commerce" maxlength="80" required>
     </section>
 
     <section class="bloc">
-      <h2><span class="num">2</span>Vos horaires de décembre</h2>
-      <p class="aide">Tous les jours sont sur <b>« Habituels »</b>. Ne modifiez que les jours qui changent. Les jours de fête sont signalés en rouge.</p>
-      <p class="aide" id="aide-autres" hidden>👥 Sous chaque jour, vous voyez combien de commerces ont déjà annoncé une ouverture : cliquez pour voir lesquels.</p>
-
-      <label class="case"><input type="checkbox" id="aucun"> Mes horaires ne changent pas en décembre</label>
-
-      <div class="grille" id="zone-jours">
-        <label class="ch">Fermeture pour congés <small>(facultatif)</small></label>
-        <div class="conges">
-          <label>Du <input type="date" id="c-du" min="2026-12-01" max="2027-01-02"></label>
-          <label>Au <input type="date" id="c-au" min="2026-12-01" max="2027-01-02"></label>
-          <button type="button" class="btn2" id="c-ok">Marquer ces jours « Fermé »</button>
-        </div>
-        <div id="grille"></div>
-      </div>
-
-      <label class="ch" for="info">Information à afficher avec vos horaires <small>(facultatif, 150 caractères)</small></label>
-      <input type="text" id="info" maxlength="150" placeholder="Ex. : nocturne le 18 jusqu'à 21h, dégustation de chocolats…">
+      <h2><span class="num">2</span>Vos dimanches et lundis de décembre</h2>
+      <p class="aide">Pour chaque jour, indiquez si vous êtes <b>ouvert</b> ou <b>fermé</b>. Une fois un jour rempli, le bouton <b>« Copier sur d'autres jours »</b> reporte les mêmes horaires en quelques clics. Chaque jour reste modifiable ensuite.</p>
+      <p class="progression" id="progression"></p>
+      <div id="grille"></div>
     </section>
 
     <section class="bloc">
       <h2><span class="num">3</span>Vos coordonnées</h2>
-      <p class="aide">Elles ne sont pas publiées : elles servent seulement à vous envoyer le récapitulatif et à vous joindre en cas de question.</p>
+      <p class="aide">Elles ne sont pas publiées : elles servent à vous envoyer le récapitulatif et à vous joindre en cas de question.</p>
       <label class="ch" for="contact">Prénom NOM</label>
       <input type="text" id="contact" maxlength="80" required autocomplete="name">
       <div class="deux">
@@ -151,9 +142,7 @@ input:focus,select:focus,textarea:focus,button:focus-visible{outline:2px solid v
       <label class="ch" for="message">Un message pour l'UCAB ? <small>(facultatif, non publié)</small></label>
       <textarea id="message" maxlength="1000"></textarea>
       <div class="hp" aria-hidden="true"><label>Site <input type="text" id="site" tabindex="-1" autocomplete="off"></label></div>
-
-      <div class="resume" id="resume"></div>
-      <label class="case"><input type="checkbox" id="rgpd"> <span style="font-weight:400">J'accepte que ces informations soient utilisées par l'UCAB pour publier les horaires de mon commerce.</span></label>
+      <label class="case"><input type="checkbox" id="rgpd"> <span>J'accepte que ces informations soient utilisées par l'UCAB pour publier les horaires de mon commerce.</span></label>
       <p class="rgpd">Vos coordonnées sont conservées par l'UCAB uniquement pour cette opération et supprimées au plus tard le 31 janvier 2027.</p>
       <button type="submit" class="btn" id="envoyer">Envoyer mes horaires</button>
       <div class="erreur-glob" id="erreur" hidden></div>
@@ -162,160 +151,130 @@ input:focus,select:focus,textarea:focus,button:focus-visible{outline:2px solid v
 
   <section class="bloc merci" id="merci" hidden></section>
 </main>
+
+<div class="voile" id="voile" hidden>
+  <div class="fenetre" role="dialog" aria-modal="true" aria-labelledby="f-titre">
+    <h3 id="f-titre">Copier sur d'autres jours</h3>
+    <p class="src" id="f-src"></p>
+    <div class="cal" id="f-cal"></div>
+    <p class="legende-cal">Cliquez sur les jours à remplir. En orange : le jour copié.</p>
+    <div class="raccourcis">
+      <button type="button" data-r="dim">Tous les dimanches</button>
+      <button type="button" data-r="lun">Tous les lundis</button>
+      <button type="button" data-r="tous">Tous</button>
+      <button type="button" data-r="aucun">Aucun</button>
+    </div>
+    <div class="actions"><button type="button" class="annuler" id="f-annuler">Annuler</button><button type="button" class="ok" id="f-ok">Appliquer</button></div>
+  </div>
+</div>
 <div class="toast" id="toast"></div>
 
 <script>
 const CFG = window.UCAB_CONFIG || {};
 const URL_SCRIPT = (CFG.SCRIPT_URL || '').trim();
 const DEMO = !URL_SCRIPT;
-const DEBUT = '2026-12-01', FIN = '2027-01-02';
+const JOURS_ISO = ['2026-12-06','2026-12-07','2026-12-13','2026-12-14','2026-12-20','2026-12-21','2026-12-27','2026-12-28'];
 
-const CATEGORIES = ['Alimentaire – Vins & spiritueux – Boucherie','Bijouterie – Maroquinerie','Culture – Loisirs','Décoration – Maison – Fleuriste','Esthétique – Beauté','Garage automobile','Informatique – Électroménager','Librairie – Presse – Papeterie','Optique – Médical','Photographes','Prêt-à-porter – Chaussures','Sport','Restaurants – Bars'];
-let COMMERCES = [
- ['Boulangerie de la République',0,'Pains, pâtisseries, sandwichs'],['La Boucherie des Halles',0,'Boucher – Charcutier'],['La Boucherie Tomczyk',0,'Traiteur – Boucher – Charcutier'],['Le Cellier des 3 Pierres',0,'Vins et spiritueux'],['Le Comptoir des Saveurs',0,'Cafés, thés, épicerie fine'],['Maple Café',0,'Cookie shop, sucré-salé'],['Pâtisserie Marianne Lorieux',0,'Pâtissier – Chocolatier – Glacier'],['Pâtisserie Marmillon',0,'Pâtissier – Chocolatier'],
- ['Guilde des Orfèvres – Bijouterie Lançon',1,'Bijouterie – Horlogerie'],['Levet Créateur – Jacques Topalian',1,'Bijouterie – Horlogerie'],['Maroquinerie Vanity',1,'Sacs – Bagagerie – Accessoires'],
- ["Salle de spectacle l'Intégral",2,'Spectacles, concerts, théâtre'],
- ['Amour de Pivoine',3,'Fleuriste'],["L'Arrosoir",3,'Fleuriste'],["Scène d'Intérieur",3,'Décoration – Art de la table'],
- ["À la Source d'Éden",4,'Institut de beauté'],['Évasion par Gaëlle',4,'Salon de coiffure femmes/hommes'],['Guilhem C Coiffure',4,'Salon de coiffure femmes/hommes'],['Passion Beauté',4,'Parfumerie – Cosmétiques – Institut'],['Yves Rocher',4,'Beauté – Cosmétiques – Institut'],
- ['Garage Peugeot-Citroën Gagnioud Thierry Auto',5,'Vente et réparation auto'],['Garage Renault Benat Automobile',5,'Vente et réparation auto'],
- ["Cat's net Multimédia",6,'Informatique'],['Ets Prémillieu – Pro & Cie',6,'Électroménager – Cuisine'],
- ['Côté Presse',7,'Presse – Librairie'],['Librairie Entre Parenthèses',7,'Librairie – Café philo'],
- ['Bugey Optique',8,'Opticien – Solaires'],['Optic 2000',8,'Opticien – Solaires'],['Optique des Terreaux',8,'Opticien – Solaires'],
- ['Photo Phil',9,'Photographe – Encadreur'],['Studio Misenscenes',9,'Photographe – Portraitiste'],
- ['Au Bonheur des Dames',10,'Prêt-à-porter femme'],['Grain de Malice',10,'Prêt-à-porter femme'],['Hugo Chaussures',10,'Chaussures mixtes'],["Territoire d'Homme Sylvie Thiriez",10,'Vêtements masculins – Linge de maison'],['Un Pas de Plus',10,'Vêtements enfants neufs et seconde main'],
- ['Cycles Cap Cool',11,'Vente – Réparation – Location vélos'],["O'Club",11,'Salle de sport – Fitness'],
- ['Brasserie des Terreaux',12,'Spécialités bugistes'],["Just'In Time",12,'Snack & brunch'],['La Balise',12,'Cuisine traditionnelle'],["L'Araignée au Plafond",12,'Bar à vins – Cuisine canaille'],['Pizzeria des Halles',12,'Restaurant italien']
-].map(([nom, c, act]) => ({ nom, cat: CATEGORIES[c], act }));
-
-const JC = ['Dim.','Lun.','Mar.','Mer.','Jeu.','Ven.','Sam.'];
 const JL = ['dimanche','lundi','mardi','mercredi','jeudi','vendredi','samedi'];
-const JP = ['dimanches','lundis','mardis','mercredis','jeudis','vendredis','samedis'];
-const MC = ['janv.','févr.','mars','avr.','mai','juin','juil.','août','sept.','oct.','nov.','déc.'];
-const ML = ['janvier','février','mars','avril','mai','juin','juillet','août','septembre','octobre','novembre','décembre'];
-const FETES = {'12-24':'Réveillon','12-25':'Noël · férié','12-31':'Saint-Sylvestre','01-01':"Jour de l'An · férié"};
-
 const $ = s => document.querySelector(s);
 const esc = s => String(s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
-
-function genDates() {
-  const out = []; let t = Date.parse(DEBUT + 'T12:00:00Z'); const f = Date.parse(FIN + 'T12:00:00Z');
-  while (t <= f) { const d = new Date(t); out.push({ iso: d.toISOString().slice(0,10), wd: d.getUTCDay(), j: d.getUTCDate(), m: d.getUTCMonth(), md: d.toISOString().slice(5,10) }); t += 864e5; }
-  return out;
-}
-const DATES = genDates();
+const DATES = JOURS_ISO.map(iso => { const d = new Date(iso + 'T12:00:00Z'); return { iso, wd: d.getUTCDay(), j: d.getUTCDate() }; });
 const PAR_ISO = Object.fromEntries(DATES.map(d => [d.iso, d]));
-const S = {}; DATES.forEach(d => S[d.iso] = { m: 'H', t: ['', '', '', ''] });
-const jnum = d => d.j === 1 ? '1er' : d.j;
-const court = d => `${JC[d.wd].toLowerCase()} ${jnum(d)} ${MC[d.m]}`;
-const long = d => `${JL[d.wd]} ${jnum(d)} ${ML[d.m]}`;
+const S = {}; DATES.forEach(d => S[d.iso] = { m: '', t: ['', '', '', ''] });
+const titre = d => `${JL[d.wd][0].toUpperCase() + JL[d.wd].slice(1)} ${d.j} décembre`;
 
-/* ---------- Liste des commerces ---------- */
-function toutesCats() {
-  const extra = [...new Set(COMMERCES.map(c => c.cat).filter(c => c && !CATEGORIES.includes(c)))].sort((a, b) => a.localeCompare(b, 'fr'));
-  return CATEGORIES.concat(extra);
-}
-function remplirSelect() {
-  const sel = $('#commerce'), garde = sel.value, cats = toutesCats();
-  const groupes = {};
-  COMMERCES.forEach(c => { const k = c.cat || 'Autres'; (groupes[k] = groupes[k] || []).push(c); });
-  let h = '<option value="">— Choisissez votre commerce —</option>';
-  cats.concat(['Autres']).forEach(cat => {
-    if (!groupes[cat]) return;
-    h += `<optgroup label="${esc(cat)}">` + groupes[cat].sort((a,b) => a.nom.localeCompare(b.nom,'fr'))
-      .map(c => `<option value="${esc(c.nom)}">${esc(c.nom)}</option>`).join('') + '</optgroup>';
-  });
-  h += '<option value="__autre">➕ Mon commerce n\'est pas dans la liste</option>';
-  sel.innerHTML = h; sel.value = garde;
-  const gc = $('#cat-autre').value;
-  $('#cat-autre').innerHTML = '<option value="">— Choisissez —</option>' + cats.map(c => `<option>${esc(c)}</option>`).join('') +
-    '<option value="__libre">➕ Autre catégorie (à préciser)</option>';
-  $('#cat-autre').value = gc;
-}
-function majCommerce() {
-  const v = $('#commerce').value, c = COMMERCES.find(x => x.nom === v);
-  $('#autre').hidden = v !== '__autre';
-  $('#note-cat').textContent = c ? `Catégorie : ${c.cat}${c.act ? ' · ' + c.act : ''}` : '';
-}
-$('#commerce').addEventListener('change', majCommerce);
-$('#cat-autre').addEventListener('change', () => { const l = $('#cat-libre'); l.hidden = $('#cat-autre').value !== '__libre'; if (!l.hidden) l.focus(); });
-
-/* ---------- Grille des jours ---------- */
-function blocJour(d) {
-  const el = document.createElement('div');
-  el.className = 'jour' + (d.wd === 0 || FETES[d.md] ? ' cle' : '');
-  el.dataset.iso = d.iso;
-  el.innerHTML = `
-    <div class="j-tete">
-      <div class="j-nom"><b>${JC[d.wd]} ${jnum(d)}</b> ${MC[d.m]}${FETES[d.md] ? `<span class="tag">${FETES[d.md]}</span>` : ''}<button type="button" class="autres" hidden></button></div>
-      <div class="seg" role="group" aria-label="${long(d)}">
-        <button type="button" data-m="H">Habituels</button><button type="button" data-m="O">Ouvert</button><button type="button" data-m="F">Fermé</button>
-      </div>
-    </div>
-    <div class="plages" hidden>
-      <span class="plage"><span>Matin</span><input type="time" data-k="0" aria-label="Matin, début"> à <input type="time" data-k="1" aria-label="Matin, fin"></span>
-      <span class="plage"><span>Après-midi</span><input type="time" data-k="2" aria-label="Après-midi, début"> à <input type="time" data-k="3" aria-label="Après-midi, fin"></span>
-      <span class="astuce">Journée continue : remplissez seulement « Matin » (ex. 9:00 à 19:00).</span>
-    </div>
-    <div class="liste-autres" hidden></div>
-    <button type="button" class="copier" hidden></button>
-    <div class="msg-err" hidden></div>`;
-  return el;
-}
+/* ---------- Grille ---------- */
 function rendreGrille() {
-  const g = $('#grille'); g.innerHTML = ''; let sem = null;
-  DATES.forEach((d, i) => {
-    if (!sem || d.wd === 1) {
-      let k = i; while (k < DATES.length - 1 && DATES[k].wd !== 0) k++;
-      sem = document.createElement('div'); sem.className = 'semaine';
-      sem.innerHTML = `<h3>Du ${court(d)} au ${court(DATES[k])}</h3>`;
-      g.appendChild(sem);
-    }
-    sem.appendChild(blocJour(d));
-    maj(d.iso);
-  });
+  $('#grille').innerHTML = DATES.map(d => `
+    <div class="jour ${d.wd === 0 ? 'dim' : 'lun'}" data-iso="${d.iso}">
+      <div class="j-tete">
+        <div class="j-nom"><b>${titre(d)}</b><button type="button" class="autres" hidden></button></div>
+        <div class="seg" role="group" aria-label="${titre(d)}"><button type="button" data-m="O">Ouvert</button><button type="button" data-m="F">Fermé</button></div>
+      </div>
+      <div class="liste-autres" hidden></div>
+      <div class="plages" hidden>
+        <span class="plage"><span>Matin</span><input type="time" data-k="0" aria-label="Matin, début"> à <input type="time" data-k="1" aria-label="Matin, fin"></span>
+        <span class="plage"><span>Après-midi</span><input type="time" data-k="2" aria-label="Après-midi, début"> à <input type="time" data-k="3" aria-label="Après-midi, fin"></span>
+        <span class="astuce">Journée continue : remplissez seulement « Matin » (ex. 9:00 à 19:00).</span>
+      </div>
+      <button type="button" class="copier" hidden>📅 Copier sur d'autres jours</button>
+      <div class="msg-err" hidden></div>
+    </div>`).join('');
+  DATES.forEach(d => maj(d.iso));
 }
-function exclusCopie(d) { return DATES.filter(x => x.wd === d.wd && x.iso !== d.iso && FETES[x.md]).length > 0; }
 function maj(iso) {
-  const el = document.querySelector(`.jour[data-iso="${iso}"]`), s = S[iso], d = PAR_ISO[iso];
+  const el = document.querySelector(`.jour[data-iso="${iso}"]`), s = S[iso];
   el.classList.remove('mod-O', 'mod-F', 'err');
-  if (s.m !== 'H') el.classList.add('mod-' + s.m);
+  if (s.m) el.classList.add('mod-' + s.m);
   el.querySelectorAll('.seg button').forEach(b => { b.classList.toggle('on', b.dataset.m === s.m); b.setAttribute('aria-pressed', b.dataset.m === s.m); });
   el.querySelector('.plages').hidden = s.m !== 'O';
   el.querySelectorAll('input[type=time]').forEach(i => i.value = s.t[i.dataset.k]);
-  const cp = el.querySelector('.copier');
-  cp.hidden = s.m === 'H';
-  cp.textContent = `↻ Appliquer à tous les ${JP[d.wd]}` + (exclusCopie(d) ? ' (sauf jours de fête)' : '');
+  el.querySelector('.copier').hidden = !(s.m === 'F' || (s.m === 'O' && !erreurJour(s)));
   el.querySelector('.msg-err').hidden = true;
-  resume();
+  progression();
+}
+function progression() {
+  const n = DATES.filter(d => S[d.iso].m).length;
+  $('#progression').textContent = n === DATES.length ? '✔ Les 8 jours sont renseignés.' : `${n} / ${DATES.length} jours renseignés`;
 }
 $('#grille').addEventListener('click', e => {
   const el = e.target.closest('.jour'); if (!el) return;
   const iso = el.dataset.iso;
-  if (e.target.matches('.seg button')) { S[iso].m = e.target.dataset.m; maj(iso); if (S[iso].m === 'O') el.querySelector('input[type=time]').focus(); }
-  if (e.target.matches('.autres')) { const l = el.querySelector('.liste-autres'); l.hidden = !l.hidden; return; }
-  if (e.target.matches('.copier')) {
-    const d = PAR_ISO[iso], src = S[iso]; let n = 0;
-    DATES.filter(x => x.wd === d.wd && x.iso !== iso && !FETES[x.md]).forEach(x => { S[x.iso] = { m: src.m, t: [...src.t] }; maj(x.iso); n++; });
-    toast(`Appliqué à ${n} autre(s) ${JL[d.wd]}(s)`);
+  if (e.target.matches('.seg button')) {
+    S[iso].m = e.target.dataset.m; maj(iso);
+    if (S[iso].m === 'O' && !S[iso].t.some(Boolean)) el.querySelector('input[type=time]').focus();
   }
+  if (e.target.matches('.copier')) ouvrirCopie(iso);
+  if (e.target.matches('.autres')) { const l = el.querySelector('.liste-autres'); l.hidden = !l.hidden; }
 });
 $('#grille').addEventListener('input', e => {
   if (!e.target.matches('input[type=time]')) return;
-  const iso = e.target.closest('.jour').dataset.iso;
+  const el = e.target.closest('.jour'), iso = el.dataset.iso;
   S[iso].t[e.target.dataset.k] = e.target.value;
-  e.target.closest('.jour').classList.remove('err');
-  e.target.closest('.jour').querySelector('.msg-err').hidden = true;
+  el.classList.remove('err'); el.querySelector('.msg-err').hidden = true;
+  el.querySelector('.copier').hidden = !!erreurJour(S[iso]);
 });
 
-$('#c-ok').addEventListener('click', () => {
-  const du = $('#c-du').value, au = $('#c-au').value || du;
-  if (!du) { toast('Indiquez la date de début des congés'); return; }
-  if (au < du) { toast('La date de fin est avant la date de début'); return; }
-  let n = 0;
-  DATES.forEach(d => { if (d.iso >= du && d.iso <= au) { S[d.iso].m = 'F'; maj(d.iso); n++; } });
-  toast(`${n} jour(s) marqué(s) « Fermé »`);
+/* ---------- Copier sur d'autres jours (calendrier cliquable) ---------- */
+let source = null; const selection = new Set();
+function ouvrirCopie(iso) {
+  source = iso; selection.clear();
+  const s = S[iso];
+  $('#f-src').innerHTML = `${titre(PAR_ISO[iso])} : <b>${esc(valeur(s))}</b>`;
+  rendreCal(); $('#voile').hidden = false; $('#f-ok').focus();
+}
+function rendreCal() {
+  // Décembre 2026 commence un mardi ; grille lundi → dimanche
+  let h = ['lun','mar','mer','jeu','ven','sam','dim'].map(j => `<div class="te">${j}</div>`).join('') + '<span></span>';
+  for (let j = 1; j <= 31; j++) {
+    const iso = `2026-12-${String(j).padStart(2, '0')}`, d = PAR_ISO[iso];
+    if (!d) { h += `<span class="j">${j}</span>`; continue; }
+    const cl = [d.wd === 0 ? 'dim' : 'lun', iso === source ? 'source' : '', selection.has(iso) ? 'sel' : ''].join(' ');
+    h += `<button type="button" class="${cl}" data-iso="${iso}" aria-pressed="${selection.has(iso)}" title="${titre(d)}">${j}</button>`;
+  }
+  $('#f-cal').innerHTML = h;
+}
+$('#f-cal').addEventListener('click', e => {
+  const b = e.target.closest('button'); if (!b || b.dataset.iso === source) return;
+  selection.has(b.dataset.iso) ? selection.delete(b.dataset.iso) : selection.add(b.dataset.iso); rendreCal();
 });
-$('#aucun').addEventListener('change', () => { $('#zone-jours').classList.toggle('off', $('#aucun').checked); resume(); });
+document.querySelector('.raccourcis').addEventListener('click', e => {
+  const r = e.target.dataset.r; if (!r) return;
+  if (r === 'aucun') selection.clear();
+  else DATES.forEach(d => { if (d.iso !== source && (r === 'tous' || (r === 'dim') === (d.wd === 0))) selection.add(d.iso); });
+  rendreCal();
+});
+function fermerCopie() { $('#voile').hidden = true; const el = document.querySelector(`.jour[data-iso="${source}"] .copier`); if (el) el.focus(); }
+$('#f-annuler').addEventListener('click', fermerCopie);
+$('#voile').addEventListener('click', e => { if (e.target.id === 'voile') fermerCopie(); });
+document.addEventListener('keydown', e => { if (e.key === 'Escape' && !$('#voile').hidden) fermerCopie(); });
+$('#f-ok').addEventListener('click', () => {
+  if (!selection.size) { toast('Cliquez sur au moins un jour'); return; }
+  const src = S[source];
+  selection.forEach(iso => { S[iso] = { m: src.m, t: [...src.t] }; maj(iso); });
+  toast(`Copié sur ${selection.size} jour(s). Vous pouvez encore modifier chaque jour.`);
+  fermerCopie();
+});
 
 /* ---------- Valeurs ---------- */
 const fh = t => { const [h, mi] = t.split(':'); return parseInt(h, 10) + 'h' + (mi !== '00' ? mi : ''); };
@@ -327,21 +286,14 @@ function valeur(s) {
   return p.join(' / ');
 }
 function erreurJour(s) {
+  if (!s.m) return 'Indiquez si vous êtes ouvert ou fermé.';
   if (s.m !== 'O') return '';
   const [a, b, c, d] = s.t;
-  if (!a && !b && !c && !d) return 'Indiquez au moins une plage horaire.';
+  if (!a && !b && !c && !d) return 'Indiquez vos horaires d\'ouverture.';
   if (!!a !== !!b || !!c !== !!d) return 'Plage incomplète : il faut une heure de début et une heure de fin.';
   if ((a && b && a >= b) || (c && d && c >= d)) return "L'heure de fin doit être après l'heure de début.";
   if (b && c && b > c) return 'Les deux plages se chevauchent.';
   return '';
-}
-function modifs() { return DATES.filter(d => S[d.iso].m !== 'H'); }
-function resume() {
-  const r = $('#resume');
-  if ($('#aucun').checked) { r.innerHTML = '✔ Horaires habituels tout le mois.'; return; }
-  const m = modifs();
-  r.innerHTML = m.length ? `<b>${m.length} jour(s) modifié(s)</b> · ${m.filter(d => S[d.iso].m === 'O').length} ouverture(s), ${m.filter(d => S[d.iso].m === 'F').length} fermeture(s).`
-    : 'Aucun jour modifié pour l\'instant.';
 }
 
 /* ---------- Envoi ---------- */
@@ -351,28 +303,17 @@ function erreur(msg, el) {
 }
 $('#form').addEventListener('submit', async e => {
   e.preventDefault(); $('#erreur').hidden = true;
-  const v = $('#commerce').value, autre = v === '__autre';
-  const c = COMMERCES.find(x => x.nom === v);
-  const commerce = autre ? $('#nom-autre').value.trim() : v;
-  const libre = autre && $('#cat-autre').value === '__libre';
-  const categorie = autre ? (libre ? $('#cat-libre').value.trim() : $('#cat-autre').value) : (c ? (c.cat || 'Autres') : '');
-  if (!v) return erreur('Choisissez votre commerce.', $('#commerce'));
-  if (autre && !commerce) return erreur('Indiquez le nom de votre commerce.', $('#nom-autre'));
-  if (!categorie) return erreur(libre ? 'Précisez votre catégorie.' : 'Choisissez la catégorie de votre commerce.', libre ? $('#cat-libre') : (autre ? $('#cat-autre') : $('#commerce')));
-
-  const aucun = $('#aucun').checked, jours = {};
-  if (!aucun) {
-    const m = modifs();
-    if (!m.length) return erreur('Modifiez au moins un jour, ou cochez « Mes horaires ne changent pas en décembre ».', $('#aucun'));
-    for (const d of m) {
-      const er = erreurJour(S[d.iso]);
-      if (er) {
-        const el = document.querySelector(`.jour[data-iso="${d.iso}"]`);
-        el.classList.add('err'); const me = el.querySelector('.msg-err'); me.textContent = er; me.hidden = false;
-        return erreur(`${long(d)[0].toUpperCase() + long(d).slice(1)} : ${er}`, el);
-      }
-      jours[d.iso] = valeur(S[d.iso]);
+  const commerce = $('#commerce').value.trim();
+  if (!commerce) return erreur('Indiquez le nom de votre commerce.', $('#commerce'));
+  const jours = {};
+  for (const d of DATES) {
+    const er = erreurJour(S[d.iso]);
+    if (er) {
+      const el = document.querySelector(`.jour[data-iso="${d.iso}"]`);
+      el.classList.add('err'); const me = el.querySelector('.msg-err'); me.textContent = er; me.hidden = false;
+      return erreur(`${titre(d)} : ${er}`, el);
     }
+    jours[d.iso] = valeur(S[d.iso]);
   }
   const contact = $('#contact').value.trim(), tel = $('#tel').value.trim(), email = $('#email').value.trim();
   if (!contact) return erreur('Indiquez votre prénom et nom.', $('#contact'));
@@ -380,9 +321,7 @@ $('#form').addEventListener('submit', async e => {
   if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) return erreur('Indiquez un email valide.', $('#email'));
   if (!$('#rgpd').checked) return erreur('Merci de cocher la case d\'accord.', $('#rgpd'));
 
-  const payload = { site: $('#site').value, commerce, categorie, activite: autre ? $('#act-autre').value.trim() : (c.act || ''),
-    contact, tel, email, info: $('#info').value.trim(), message: $('#message').value.trim(), aucunChangement: aucun, jours };
-
+  const payload = { site: $('#site').value, commerce, contact, tel, email, message: $('#message').value.trim(), jours };
   const btn = $('#envoyer'); btn.disabled = true; btn.textContent = 'Envoi en cours…';
   try {
     let rep;
@@ -399,52 +338,37 @@ $('#form').addEventListener('submit', async e => {
   }
 });
 function merci(p) {
-  const lignes = Object.keys(p.jours).sort().map(iso => {
-    const d = PAR_ISO[iso], v = p.jours[iso];
-    return `<tr><td>${esc(long(d)[0].toUpperCase() + long(d).slice(1))}</td><td class="${v === 'Fermé' ? 'f' : 'o'}">${esc(v)}</td></tr>`;
-  }).join('');
+  const lignes = DATES.map(d => { const v = p.jours[d.iso]; return `<tr><td>${titre(d)}</td><td class="${v === 'Fermé' ? 'f' : 'o'}">${esc(v)}</td></tr>`; }).join('');
   $('#merci').innerHTML = `<h2>🎄 Merci, c'est enregistré !</h2>
-    <p>Les horaires de <b>${esc(p.commerce)}</b> ont bien été transmis à l'UCAB.</p>
-    ${lignes ? `<table>${lignes}</table><p class="aide">Les autres jours : horaires habituels.</p>` : '<p>Horaires habituels tout le mois.</p>'}
+    <p>Les ouvertures de <b>${esc(p.commerce)}</b> ont bien été transmises à l'UCAB.</p>
+    <table>${lignes}</table>
     <p>Un récapitulatif vient de vous être envoyé à <b>${esc(p.email)}</b>.<br>Pour corriger, répondez simplement à cet email.</p>`;
   $('#form').hidden = true; $('#merci').hidden = false; window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 
-let tt; function toast(m) { const t = $('#toast'); t.textContent = m; t.classList.add('vu'); clearTimeout(tt); tt = setTimeout(() => t.classList.remove('vu'), 2200); }
-
 /* ---------- Ce qu'ont déjà annoncé les autres commerces ---------- */
 function afficherAutres(data) {
   if (!data || !data.commerces) return;
-  let total = 0;
   DATES.forEach(d => {
     const el = document.querySelector(`.jour[data-iso="${d.iso}"]`);
-    const ouv = data.commerces.filter(c => c.jours && c.jours[d.iso] && !/^\s*ferm/i.test(c.jours[d.iso]))
-      .sort((a, b) => a.nom.localeCompare(b.nom, 'fr'));
-    const btn = el.querySelector('.autres'), l = el.querySelector('.liste-autres');
-    if (!ouv.length) { btn.hidden = true; l.hidden = true; return; }
-    total++;
+    const ouv = data.commerces.filter(c => c.jours && c.jours[d.iso] && !/^\s*ferm/i.test(c.jours[d.iso]));
+    const btn = el.querySelector('.autres');
+    if (!ouv.length) { btn.hidden = true; return; }
     btn.hidden = false;
-    btn.textContent = `👥 ${ouv.length} commerce${ouv.length > 1 ? 's' : ''} ouvert${ouv.length > 1 ? 's' : ''}`;
-    l.innerHTML = 'Déjà annoncés : ' + ouv.map(c => `<b>${esc(c.nom)}</b> (${esc(c.jours[d.iso])})`).join(' · ');
+    btn.textContent = `👥 ${ouv.length} commerce${ouv.length > 1 ? 's' : ''} déjà ouvert${ouv.length > 1 ? 's' : ''}`;
+    el.querySelector('.liste-autres').innerHTML = ouv.map(c => `<b>${esc(c.nom)}</b> (${esc(c.jours[d.iso])})`).join(' · ');
   });
-  $('#aide-autres').hidden = total === 0;
 }
-const DEMO_AUTRES = { commerces: [
-  { nom: 'Boulangerie de la République', jours: { '2026-12-13': '7h–12h30', '2026-12-20': '7h–13h', '2026-12-24': '7h–18h', '2026-12-31': '7h–17h' } },
-  { nom: 'Le Cellier des 3 Pierres', jours: { '2026-12-20': '10h–18h', '2026-12-21': '9h30–19h', '2026-12-24': '9h–17h' } },
-  { nom: 'Au Bonheur des Dames', jours: { '2026-12-20': '10h–18h', '2026-12-21': '10h–19h' } }
-] };
 
-/* ---------- Démarrage ---------- */
+let tt; function toast(m) { const t = $('#toast'); t.textContent = m; t.classList.add('vu'); clearTimeout(tt); tt = setTimeout(() => t.classList.remove('vu'), 2600); }
+
 $('#demo').hidden = !DEMO;
-remplirSelect(); rendreGrille(); resume();
-if (DEMO) afficherAutres(DEMO_AUTRES);
-else {
-  fetch(URL_SCRIPT).then(r => r.json()).then(afficherAutres).catch(() => {});
-  fetch(URL_SCRIPT + '?action=liste').then(r => r.json()).then(d => {
-    if (d && d.commerces && d.commerces.length) { COMMERCES = d.commerces; remplirSelect(); majCommerce(); }
-  }).catch(() => {});
-}
+rendreGrille();
+if (DEMO) afficherAutres({ commerces: [
+  { nom: 'Boulangerie de la République', jours: { '2026-12-13': '7h–12h30', '2026-12-20': '7h–13h' } },
+  { nom: 'Le Cellier des 3 Pierres', jours: { '2026-12-20': '10h–18h', '2026-12-21': '9h30–19h' } }
+] });
+else fetch(URL_SCRIPT).then(r => r.json()).then(afficherAutres).catch(() => {});
 </script>
 </body>
 </html>
