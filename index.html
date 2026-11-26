@@ -173,7 +173,7 @@ input:focus,textarea:focus,button:focus-visible{outline:2px solid var(--bleu);ou
 const CFG = window.UCAB_CONFIG || {};
 const URL_SCRIPT = (CFG.SCRIPT_URL || '').trim();
 const DEMO = !URL_SCRIPT;
-const JOURS_ISO = ['2026-12-06','2026-12-07','2026-12-13','2026-12-14','2026-12-20','2026-12-21','2026-12-27','2026-12-28'];
+const JOURS_ISO = ['2026-12-06','2026-12-07','2026-12-13','2026-12-14','2026-12-20','2026-12-21'];
 
 const JL = ['dimanche','lundi','mardi','mercredi','jeudi','vendredi','samedi'];
 const $ = s => document.querySelector(s);
@@ -215,7 +215,7 @@ function maj(iso) {
 }
 function progression() {
   const n = DATES.filter(d => S[d.iso].m).length;
-  $('#progression').textContent = n === DATES.length ? '✔ Les 8 jours sont renseignés.' : `${n} / ${DATES.length} jours renseignés`;
+  $('#progression').textContent = n === DATES.length ? `✔ Les ${DATES.length} jours sont renseignés.` : `${n} / ${DATES.length} jours renseignés`;
 }
 $('#grille').addEventListener('click', e => {
   const el = e.target.closest('.jour'); if (!el) return;
